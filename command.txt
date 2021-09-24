@@ -1,0 +1,1 @@
+bash -c "$(wget -O - https://raw.githubusercontent.com/maciejewskikamil/zabbix-installer/main/debian_install_zabbix.sh)"
