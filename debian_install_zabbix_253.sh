@@ -101,5 +101,5 @@ else
 fi
 
 echo -e "${YELLOW}REMEMBER TO SET UP FIREWALL!${NC}"
-echo -e "${YELLOW}iptables -A INPUT -s 10.200.253.90 -p tcp -m multiport --dports 10050:10051${NC}"
+echo -e "${YELLOW}iptables -A INPUT -s 10.200.253.90 -p tcp -m multiport --dports 10050:10051 -j ACCEPT${NC}"
 echo -e "${GREEN}OK!   ${NC} All done."
