@@ -50,7 +50,7 @@ fi
 if [ $VER = "9" ]; then
     cd /tmp/
     echo -e "${BLUE}INFO!  ${NC}Downloading zabbix repository..."
-    wget https://repo.zabbix.com/zabbix/5.4/debian/pool/main/z/zabbix-release/zabbix-release_5.4-1+debian9_all.deb &>/dev/null
+    wget --no-check-certificate https://repo.zabbix.com/zabbix/5.4/debian/pool/main/z/zabbix-release/zabbix-release_5.4-1+debian9_all.deb &>/dev/null
     echo -e "${GREEN}OK!   ${NC} Zabbix repository downloaded."
     echo -e "${BLUE}INFO!  ${NC}Installing zabbix repository..."
     dpkg -i zabbix-release_5.4-1+debian9_all.deb &>/dev/null
@@ -62,13 +62,11 @@ if [ $VER = "9" ]; then
     echo -e "${GREEN}OK!   ${NC} Zabbix-agent installed."
     echo -e "${BLUE}INFO!  ${NC}Setting up zabbix-agent..."
     rm /etc/zabbix/zabbix_agentd.conf || true
-    read -p "Enter optional metadata (separated by comma): " METADATA
     echo "PidFile=/var/run/zabbix/zabbix_agentd.pid" >>/etc/zabbix/zabbix_agentd.conf
     echo "Server=zabbix-proxy-01-local.systell.pl" >>/etc/zabbix/zabbix_agentd.conf
     echo "ServerActive=zabbix-proxy-01-local.systell.pl" >>/etc/zabbix/zabbix_agentd.conf
     echo "HostnameItem=system.hostname" >>/etc/zabbix/zabbix_agentd.conf
     echo "LogFile=/var/log/zabbix/zabbix_agentd.log" >>/etc/zabbix/zabbix_agentd.conf
-    echo "HostMetadata=Linux,$METADATA" >>/etc/zabbix/zabbix_agentd.conf
     echo -e "${GREEN}OK!   ${NC} config file is set up now."
     echo -e "${BLUE}INFO!  ${NC}restarting zabbix-agent..."
     systemctl restart zabbix-agent
@@ -76,7 +74,7 @@ if [ $VER = "9" ]; then
 elif [ $VER = "10" ]; then
     cd /tmp/
     echo -e "${BLUE}INFO!  ${NC}Downloading zabbix repository..."
-    wget https://repo.zabbix.com/zabbix/5.4/debian/pool/main/z/zabbix-release/zabbix-release_5.4-1+debian10_all.deb &>/dev/null
+    wget --no-check-certificate https://repo.zabbix.com/zabbix/5.4/debian/pool/main/z/zabbix-release/zabbix-release_5.4-1+debian10_all.deb &>/dev/null
     echo -e "${GREEN}OK!   ${NC} Zabbix repository downloaded."
     echo -e "${BLUE}INFO!  ${NC}Installing zabbix repository..."
     dpkg -i zabbix-release_5.4-1+debian10_all.deb &>/dev/null
@@ -88,13 +86,11 @@ elif [ $VER = "10" ]; then
     echo -e "${GREEN}OK!   ${NC} Zabbix-agent installed."
     echo -e "${BLUE}INFO!  ${NC}Setting up zabbix-agent..."
     rm /etc/zabbix/zabbix_agentd.conf || true
-    read -p "Enter optional metadata (separated by comma): " METADATA
     echo "PidFile=/var/run/zabbix/zabbix_agentd.pid" >>/etc/zabbix/zabbix_agentd.conf
     echo "Server=zabbix-proxy-exea-dmz.systell.pl" >>/etc/zabbix/zabbix_agentd.conf
     echo "ServerActive=zabbix-proxy-exea-dmz.systell.pl" >>/etc/zabbix/zabbix_agentd.conf
     echo "HostnameItem=system.hostname" >>/etc/zabbix/zabbix_agentd.conf
     echo "LogFile=/var/log/zabbix/zabbix_agentd.log" >>/etc/zabbix/zabbix_agentd.conf
-    echo "HostMetadata=Linux,$METADATA" >>/etc/zabbix/zabbix_agentd.conf
     echo -e "${GREEN}OK!   ${NC} config file is set up now."
     echo -e "${BLUE}INFO!  ${NC}restarting zabbix-agent..."
     systemctl restart zabbix-agent
@@ -105,4 +101,5 @@ else
 fi
 
 echo -e "${YELLOW}REMEMBER TO SET UP FIREWALL!${NC}"
+echo -e "${YELLOW}iptables -A INPUT -s 10.200.253.90 -p tcp -m multiport --dports 10050:10051${NC}"
 echo -e "${GREEN}OK!   ${NC} All done."
