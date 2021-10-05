@@ -63,8 +63,8 @@ if [ $VER = "9" ]; then
     echo -e "${BLUE}INFO!  ${NC}Setting up zabbix-agent..."
     rm /etc/zabbix/zabbix_agentd.conf || true
     echo "PidFile=/var/run/zabbix/zabbix_agentd.pid" >>/etc/zabbix/zabbix_agentd.conf
-    echo "Server=zabbix-proxy-01-local.systell.pl" >>/etc/zabbix/zabbix_agentd.conf
-    echo "ServerActive=zabbix-proxy-01-local.systell.pl" >>/etc/zabbix/zabbix_agentd.conf
+    echo "Server=zabbix-proxy-exea-dmz.systell.pl" >>/etc/zabbix/zabbix_agentd.conf
+    echo "ServerActive=zabbix-proxy-exea-dmz.systell.pl" >>/etc/zabbix/zabbix_agentd.conf
     echo "HostnameItem=system.hostname" >>/etc/zabbix/zabbix_agentd.conf
     echo "LogFile=/var/log/zabbix/zabbix_agentd.log" >>/etc/zabbix/zabbix_agentd.conf
     echo -e "${GREEN}OK!   ${NC} config file is set up now."
